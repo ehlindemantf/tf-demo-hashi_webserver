@@ -13,7 +13,7 @@ provider "aws" {
 
 # Create an EC2 Instance
 resource "aws_instance" "web_server" {
-  ami           = data.aws_ami.amazon_linux_2.id
+  ami           = data.aws_ami.hc-base-ubuntu-2404["amd64"].id
   instance_type = var.instance_type
 
   key_name = var.key_name
@@ -38,13 +38,18 @@ resource "aws_instance" "web_server" {
 
 
 # Get AMI ID
-data "aws_ami" "amazon_linux_2" {
-  most_recent = true
-  owners      = ["amazon"]
+data "aws_ami" "hc-base-ubuntu-2404" {
+  for_each = toset(["amd64", "arm64"])
   filter {
     name   = "name"
-    values = ["amzn2-ami-kernel-5.10-hvm-*-x86_64-gp2"]
+    values = [format("hc-base-ubuntu-2404-%s-*", each.value)]
   }
+  filter {
+    name   = "state"
+    values = ["available"]
+  }
+  most_recent = true
+  owners      = ["888995627335"] # ami-prod account
 }
 
 # Create a Security Group to allow SSH and HTTP traffic

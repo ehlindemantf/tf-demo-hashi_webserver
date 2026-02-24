@@ -2,13 +2,15 @@
 export instance_type="${instance_type}"
 export environment="${environment}"
 export region="${region}"
-sudo yum update -y
-sudo amazon-linux-extras install -y epel
-sudo yum install -y httpd
-sudo systemctl enable httpd
-sudo systemctl start httpd
-sudo systemctl status httpd
-sudo cat << EOF > /var/www/html/index.html
+
+# Update and install Apache (Ubuntu uses apt + apache2, not yum + httpd)
+sudo apt-get update -y
+sudo apt-get install -y apache2
+sudo systemctl enable apache2
+sudo systemctl start apache2
+sudo systemctl status apache2
+
+sudo cat <<EOF > /var/www/html/index.html
 <h1>Hello! This is a sales demo from the SE Team.</h1>
 <p>Instance Type: $instance_type</p>
 <p>Environment: $environment</p>
