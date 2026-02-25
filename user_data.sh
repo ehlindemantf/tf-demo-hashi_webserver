@@ -11,7 +11,7 @@ sudo systemctl start apache2
 sudo systemctl status apache2
 
 sudo cat <<EOF > /var/www/html/index.html
-<h1>Hello! This is a sales demo from the SE Team.</h1>
+<h1>Hello! This is a sales demo from the SE Team using the tf-demo-hashi repo</h1>
 <p>Instance Type: $instance_type</p>
 <p>Environment: $environment</p>
 <p>Region: $region</p>
