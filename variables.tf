@@ -25,7 +25,8 @@ variable "instance_type" {
 variable "key_name" {
   type        = string
   description = "The name of the existing key pair for SSH access"
-  default     = "linux-demo-kp"
+  #default     = "linux-demo-kp"
+   default     = "miossh"
 }
 
 variable "server" {
